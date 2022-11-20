@@ -1,0 +1,115 @@
+% Written by Gabriel 'Bzyli' ORHON
+
+\documentclass[11pt, oneside, a4paper, titlepage]{article}
+
+\usepackage[most]{tcolorbox}
+\usepackage[a4paper, left=0cm, right=0cm, top=0cm, bottom=0cm]{geometry}
+\usepackage{emoji}
+\usepackage{tikz}
+\usepackage{titlesec}
+\usepackage{fontspec}
+
+% Font definition 
+\setmainfont{Tahoma}
+% Colors definitions
+\definecolor{accentColor}{RGB}{0,66,66}
+
+% Making subsection a part of a line, used in the skills 
+\titleformat{\subsection}[runin]{\normalsize\bfseries}{\thesubsection}{8pt}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Defining useful commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\makeheader}[3]{
+    \tcbset{colframe=gray!96!black,colback=accentColor,arc=0mm}\\
+    \begin{tcolorbox}
+        \begin{minipage}{4.5cm}
+            \includegraphics[width=4cm]{#1}
+        \end{minipage}
+        \begin{minipage}{15cm}
+            \Huge\textbf{{\textcolor{white}{#2}}} \\
+            \vspace*{-0.5cm}
+            \Large{\textcolor{white}{\emph{#3}}}
+        \end{minipage}
+    \end{tcolorbox}
+}
+
+\newcommand{\resumesection}[4]{
+    \noindent
+    \begin{minipage}[t]{#3cm}
+        \section*{\hspace*{0.5cm}\textbf{\Huge{{\emoji{#1}}\hspace*{2pt}#2}}}
+        \vspace*{-0.5cm}
+        \hspace*{0.3cm}
+        \textcolor{accentColor}{\rule{#3cm}{1mm}}
+        \hspace*{0.5cm}
+        \begin{minipage}{#3cm}
+            \nodinent%
+            #4
+        \end{minipage}
+    \end{minipage}
+}
+
+\newcommand{\grade}[1]{
+    \begin{tikzpicture}
+        \clip (1cm-.3cm,-.3cm) rectangle (5cm +.5cm ,.3cm);
+        \begin{scope}noou
+            \clip (1cm-.3cm,-.3cm) rectangle (#1cm +.5cm ,.3cm);
+            \foreach \x in {1,2,...,5}{
+                \path[fill=accentColor] (\x cm,0) circle (.15cm);
+            }
+        \end{scope}l
+        \foreach \x in {1,2,...,5}{
+            \draw (\x cm,0) circle (.15cm);
+        }
+    \end{tikzpicture}%
+}
+
+\newcommand{\skillentry}[3]{
+    \vspace*{0.2cm}
+    \begin{minipage}[t]{\linewidth}
+        \subsection*{\big{\textbf{#1}}}
+        \hfill{\grade{#3}} \\
+        #2
+    \end{minipage}
+}
+
+\newcommand{\dateentry}[4]{
+    \vspace*{0.2cm}
+    \begin{minipage}[t]{\linewidth}
+        \subsection*{\big{\textbf{#1}}} \small{#2}
+        \hfill{#4}\\
+        #3
+    \end{minipage}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Real document                %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+    \makeheader{bzyli.png}{Bzyli}{un mec...}
+    \resumesection{wave}{Profile}{19}{
+        Hi, I'm bzyli, a random dev doing random things \\
+        For instance, I'm making this resume using \LaTeX cause why not :D \\
+        It took quite a lot of time to setup the page but now it's really easy to add things } \\
+    \resumesection{earth-africa}{Langues}{9}{
+        \begin{itemize}
+            \item Maths
+            \item Français \subitem{Langue Native}
+            \item Anglais \subitem{C1 Level} \subitem{Fluent}
+            \item Espagnol \subitem{School Level B1}
+            \item Chinois \subitem{Lost it}
+        \end{itemize}
+    }
+    \resumesection{computer}{Compétences}{10}{
+        \skillentry{Python}{Connaissance du langage Python}{3}
+        \skillentry{Linux}{Déploiment de divers installations}{4.5}
+        \skillentry{Pilotage planeur}{Tah un pilote vraiment incroyable}{5}
+        \skillentry{Humour}{Le mec le plus marrant sur terre}{5}
+    }
+
+    \resumesection{backpack}{Education}{19}{
+        \dateentry{Some high School}{Pas grand chose}{Une description super intéressante}{2014-2018}
+    }\\
+\end{document}
